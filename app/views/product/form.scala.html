@@ -1,0 +1,28 @@
+@import models.Product
+@(productForm: Form[Product])(implicit messages: Messages, flash: Flash, request: play.api.mvc.Request[Any])
+@import common._
+
+    @mainLayout(title = "New Product") {
+        @flash.get("success").map { message =>
+            <p>@message</p>
+        }
+
+    @if(productForm.hasGlobalErrors){
+    <ul>
+        @for(error <- productForm.globalErrors){
+            <li>@error.message</li>
+        }
+    </ul>
+    }
+
+
+    @helper.form(action = routes.ProductController.postForm()){
+        @helper.CSRF.formField @* -Add the CSRF Token Helper Tag- *@
+
+        @helper.inputText(productForm("id"))
+        @helper.inputText(productForm("name"))
+
+        <input type="submit">
+    }
+
+}

@@ -1,0 +1,6 @@
+@(productMap: Map[Int, String])
+
+@for((id, name) <- productMap){
+    The product '@name' has an id @id
+}
+
